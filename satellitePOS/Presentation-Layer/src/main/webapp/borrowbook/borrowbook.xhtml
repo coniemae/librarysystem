@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+	<ui:define name="content">
+		<h:form id="borrowBookForm">
+
+			<p:dataTable id="borrowBookTable" widgetVar="borrowBookTableVar"
+				value="#{transactionController.borrowerList}" var="br"
+				rowKey="#{br.id}" rows="10" rowIndexVar="rowIndex" paginator="true"
+				paginatorPosition="bottom">
+				<p:column>
+					<f:facet name="header">Borrower No.</f:facet>
+					<h:outputText value="#{rowIndex+1}" />
+				</p:column>
+				<p:column headerText="Borrower Name">
+					<h:outputText value="#{br.name}" />
+				</p:column>
+				<p:column headerText="Book Name">
+					<h:outputText value="#{br.book.name}" />
+				</p:column>
+				<p:column headerText="Date Borrowed">
+					<h:outputText value="#{br.dateBorrowed}" />
+				</p:column>
+				<p:column headerText="Date Returned">
+					<h:outputText value="#{br.dateReturned}" />
+				</p:column>
+				<p:column headerText="Dues">
+					<h:outputText value="#{br.dues} days" />
+				</p:column>
+				<!-- <p:column>
+					<p:commandButton oncomplete="PF('borrowerBookVar').show()"
+						value="Update" action="#{transactionController.prepareUpdate()}"
+						immediate="true"
+						update=":borrowBookForm:borrowBookTable :addEditTransactionForm:borrowerBookId">
+						<f:setPropertyActionListener value="#{br}"
+							target="#{borrowerController.borrower}" />
+					</p:commandButton>
+				</p:column> -->
+				<p:column>
+					<p:commandButton value="Return Book" id="returnBookBtn"
+						widgetVar="returnBtnVar" oncomplete="PF('returnBookVar').show()"
+						action="#{transactionController.prepareUpdate}" immediate="true"
+						update=":borrowBookForm:borrowBookTable :returnBookForm:returnBookId">
+						<f:setPropertyActionListener value="#{br}"
+							target="#{transactionController.borrower}" />
+					</p:commandButton>
+				</p:column>
+				<!-- <p:commandButton widgetVar="deleteBtnVar" value="delete"
+						oncomplete="PF('borrowBookDeleteVar').show()" immediate="true"
+						update=":borrowBookForm:borrowBookTable :deleteTransactionId:borrowBookDelete">
+						<f:setPropertyActionListener value="#{br}"
+							target="#{borrowerController.borrower}" />
+					</p:commandButton> -->
+				<!-- <p:column>
+					<p:commandButton oncomplete="PF('returnBookVar').show()"
+						value="Return Book" action="#{transactionController.prepareUpdate}"
+						immediate="true" update="">
+						<f:setPropertyActionListener value="#{br}"
+							target="#{transactionController.borrower}" />
+					</p:commandButton>
+				</p:column>	 -->
+				<f:facet name="footer">
+					<p:commandButton value="Borrow Book" id="borrowBookBtn"
+						widgetVar="borrowBookBtnVar"
+						oncomplete="PF('borrowerBookVar').show()" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+		<ui:include src="deletetransaction.xhtml"></ui:include>
+		<ui:include src="addupdatetransaction.xhtml"></ui:include>
+		<ui:include src="returnbook.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>

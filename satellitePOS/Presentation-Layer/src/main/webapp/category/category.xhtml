@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+	<ui:define name="content">
+		<h:head>
+			<title>Library System</title>
+		</h:head>
+		<h:form id="categoryForm">
+			<p:dataTable id="categoryTable" widgetVar="categoryTableVar"
+				value="#{categoryController.categoryList}" var="c" rowKey="#{c.id}"
+				rows="10" rowIndexVar="rowIndex" paginator="true"
+				paginatorPosition="bottom">
+				<p:column>
+					<f:facet name="header">Category No.</f:facet>
+					<h:outputText value="#{rowIndex+1}" />
+				</p:column>
+				<p:column headerText="Name">
+					<h:outputText value="#{c.name}" />
+				</p:column>
+				<p:column>
+					<p:commandButton oncomplete="PF('categoryVar').show()"
+						value="update" action="#{categoryController.prepareUpdate}"
+						update=":editCategoryForm:categoryDetail :editCategoryForm:categoryDetail">
+						<f:setPropertyActionListener value="#{c}"
+							target="#{categoryController.category}" />
+					</p:commandButton>
+					<p:commandButton widgetVar="deleteBtnVar" value="delete"
+						oncomplete="PF('DeleteVar').show()" immediate="true" 
+						update=":deleteCategoryForm:Deletes">
+						<f:setPropertyActionListener value="#{c}"
+							target="#{categoryController.category}" />
+					</p:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="Create New category"
+						id="createNewcategoryButton" widgetVar="createNewButtonVar"
+						oncomplete="PF('categoryVar').show()"
+						action="#{categoryController.prepareCreate}" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+		<ui:include src="editCategory.xhtml"></ui:include>
+		<ui:include src="deleteCategory.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>

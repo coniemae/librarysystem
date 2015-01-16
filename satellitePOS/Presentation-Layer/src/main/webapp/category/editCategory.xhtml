@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="editCategoryForm">
+	<p:dialog header="categoryName" widgetVar="categoryVar"
+		id="categoryDetail">
+		<p:outputPanel id="categoryDetails">
+			<p:panelGrid columns="2" id="categoryGrid">
+				<p:outputLabel value="category Name:" />
+				<h:inputText value="#{categoryController.category.name}"
+					required="true" requiredMessage="Name Required!" />
+				<f:facet name="footer">
+					<p:commandButton widgetVar="categoryBtnVar"
+						action="#{categoryController.save()}" value="Save"
+						oncomplete="PF('editCategoryMessageVar').show()"
+						update=":categoryForm:categoryTable :editCategoryForm:categoryGrid :editCategoryForm:editCategoryMessageDialog"
+						onstart="PF('categoryBtnVar').disable()"
+						onsuccess="PF('categoryBtnVar').enable()" />
+					<p:commandButton value="Cancel"
+						oncomplete="PF('categoryVar').hide()" immediate="true"/>
+				</f:facet>
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:dialog>
+	<p:dialog widgetVar="editCategoryMessageVar"
+		id="editCategoryMessageDialog" modal="true" draggable="false"
+		closable="false" header="Category Management Notification"
+		resizable="false">
+		<p:messages closable="false" showDetail="false"
+			id="editCategotyMessages"></p:messages>
+		<p:commandButton value="Close"
+			onclick = "PF('editCategoryMessageVar').hide()" onsuccess="PF('categoryVar').hide()" update=":categoryForm:categoryTable"/>
+		<script type="text/javascript">
+			if(#{categoryController.addedOrUpdated}){
+				"PF('categoryVar').hide();"
+			}else{
+				"PF('categoryVar').show();"
+			}
+		</script>
+	</p:dialog>
+</h:form>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="editBookForm">
+	<!-- <p:growl id="growl" showDetail="true" sticky="true" /> -->
+	<p:dialog header="BookName" widgetVar="editbookVar" id="bookDetail">
+		<p:outputPanel id="bookDetails">
+			<p:panelGrid columns="5" id="editBookGrid">
+				<p:outputLabel value="ISBN:" />
+				<h:inputText value="#{bookController.book.isbn}" required="true"
+					requiredMessage="ISBN is required!" />
+				<p:outputLabel value="Book Name:" />
+				<h:inputText value="#{bookController.book.name}" required="true"
+					requiredMessage="Name Required!" id="editInputText" />
+				<!-- <p:message for="editInputText" display="text" /> -->
+				<h:outputLabel value="Category" />
+				<p:selectOneMenu id="categorySelect" widgetVar="categorySelectVar"
+					value="#{bookController.book.category}"
+					converter="categoryConverter" required="true"
+					requiredMessage="Category is Required!">
+					<f:selectItem itemLabel="Select Category"
+						itemValue="Select Category" />
+					<f:selectItems value="#{categoryController.categoryList}" var="c"
+						itemLabel="#{c.name}" itemValue="#{c}" />
+				</p:selectOneMenu>
+				<p:outputLabel value="Quantity:" />
+				<h:inputText value="#{bookController.book.quantity}" required="true"
+					requiredMessage="Quantity is required!" />
+				<f:facet name="footer">
+					<p:commandButton widgetVar="bookBtnVar"
+						actionListener="#{bookController.save()}" value="Save"
+						oncomplete="PF('editBookMessageDialogVar').show()"
+						update=":bookForm:bookTable :editBookForm:editBookGrid :editBookForm:editBookMessageDialog"
+						onstart="PF('bookBtnVar').disable()"
+						onsuccess="PF('bookBtnVar').enable()" />
+					<p:commandButton value="Cancel"
+						oncomplete="PF('editbookVar').hide()" immediate="true" />
+					<p:commandButton id="btn_reset" value="Reset" type="reset" />
+				</f:facet>
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:dialog>
+	<p:dialog widgetVar="editBookMessageDialogVar"
+		id="editBookMessageDialog" modal="true" draggable="false"
+		closable="false" header="Book Management Notification"
+		resizable="false">
+		<p:messages closable="false" showDetail="false" id="editBookMessages"></p:messages>
+		<p:commandButton value="Close"
+			onclick="PF('editBookMessageDialogVar').hide()"
+			onsuccess="PF('editbookVar').hide()" update=":bookForm:bookTable" />
+		<script type="text/javascript">
+			if(#{bookController.addedOrUpdated}){
+				"PF('editBookVar').hide();"
+			}else{
+				"PF('editBookVar').show();"
+			}
+		</script>
+	</p:dialog>
+
+</h:form>
+</html>

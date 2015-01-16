@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="CA" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{dd/MM/yyyy HH:mm:ss} %-4r [%t] %-5p %c %x - %m%n" />
+		</layout>
+
+	</appender>
+
+	<!-- <appender name="FA" class="org.apache.log4j.rolling.RollingFileAppender"> -->
+	<!-- <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy"> -->
+	<!-- <param name="FileNamePattern" value="../SharpFileAvailabilityChecker/logs/daily_log.%d{yyyyMMdd}" 
+		/> -->
+	<!-- </rollingPolicy> -->
+	<!-- <layout class="org.apache.log4j.PatternLayout"> -->
+	<!-- <param name="ConversionPattern" value="%d{dd/MM/yyyy HH:mm:ss} %-4r 
+		[%t] %-5p %c %x - %m%n" /> -->
+	<!-- </layout> -->
+	<!-- </appender> -->
+
+	<!-- <appender name="FA1" class="org.apache.log4j.FileAppender"> -->
+	<!-- <param name="File" value="../GuiceSandbox/config/configsample2.log"/> -->
+	<!-- <param name="Threshold" value="ERROR"/> -->
+	<!-- <layout class="org.apache.log4j.PatternLayout"> -->
+	<!-- <param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss} %-4r 
+		[%t] %-5p %c %x - %m%n" /> -->
+	<!-- </layout> -->
+	<!-- </appender> -->
+	<!-- <appender name="FA2" class="org.apache.log4j.FileAppender"> -->
+	<!-- <param name="File" value="../GuiceSandbox/config/timestamp.log"/> -->
+	<!-- <param name="Threshold" value="INFO"/> -->
+	<!-- <layout class="org.apache.log4j.PatternLayout"> -->
+	<!-- <param name="ConversionPattern" value="%d{yyyyMMddHHmmss} - %m%n" /> -->
+	<!-- </layout> -->
+	<!-- </appender> -->
+
+	<logger name="log4j.logger.httpclient.wire.header">
+		<level value="ERROR" />
+	</logger>
+	<logger name="log4j.logger.httpclient.wire.content">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.wire">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.impl.conn.tsccm.ConnPoolByRoute">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.headers">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.impl.conn.DefaultClientConnectionOperator">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.client.protocol.RequestAddCookies">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.client.protocol.RequestProxyAuthentication">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.client.protocol.RequestAuthCache">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.client.protocol.RequestTargetAuthentication">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.impl.client.DefaultHttpClient">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.impl.conn.DefaultClientConnection">
+		<level value="ERROR" />
+	</logger>
+	<logger name="org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager">
+		<level value="ERROR" />
+	</logger>
+	<root>
+		<appender-ref ref="CA" />
+		<!-- <appender-ref ref="FA" /> -->
+	</root>
+</log4j:configuration>

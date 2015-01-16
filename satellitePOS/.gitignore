@@ -1,0 +1,14 @@
+/.gitignore~
+/Satellite-Data-Layer/bin/pom.xml
+/Satellite-Data-Layer/bin/src/main/resources/META-INF/persistence-TEST.xml
+/Satellite-Data-Layer/bin/src/main/resources/META-INF/persistence.xml
+/Satellite-Web-Service/transaction.log
+/hs_err_pid24537.log
+/pom.xml~
+.DS_Store
+.classpath
+.project
+*.class
+.settings/
+target/
+temp/

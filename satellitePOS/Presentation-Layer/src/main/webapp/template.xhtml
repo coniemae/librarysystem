@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/css/default.css"
+		rel="stylesheet" type="text/css"></link>
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/css/cssLayout.css"
+		rel="stylesheet" type="text/css"></link>
+	<title>Library System</title>
+</h:head>
+
+<h:body>
+	<div id="top" class="top">
+		<ui:insert name="top">Library Management</ui:insert>
+	</div>
+		<div id="right">
+			<ui:insert name="right">
+			<p:panelMenu>
+				<p:submenu label="Manage Library">
+					<p:menuitem icon="ui-icon-refresh" value="Book" url="http://localhost:8080/library/book/books.jsf"></p:menuitem>
+					<p:menuitem icon="ui-icon-refresh" value="Category" url = "http://localhost:8080/library/category/category.jsf"></p:menuitem>
+				</p:submenu>
+				<p:submenu label="Manage Borrower">
+					<p:menuitem icon="ui-icon-refresh" value="Borrower" url="http://localhost:8080/library/borrower/borrower.jsf"></p:menuitem>
+				</p:submenu>
+				<p:submenu label="Transaction">
+					<p:menuitem icon="ui-icon-refresh" value="Borrow Book" url="http://localhost:8080/library/borrowbook/borrowbook.jsf"></p:menuitem>
+				</p:submenu>
+			</p:panelMenu>
+			</ui:insert>
+		</div>
+		<div id="content" class="right_content">
+			<ui:insert name="content"></ui:insert>
+		</div>
+</h:body>
+</html>

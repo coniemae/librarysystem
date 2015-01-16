@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+	<ui:define name="content">
+		<h:head>
+			<title>Library System</title>
+		</h:head>
+		<h:form id="bookForm">
+			<p:dataTable id="bookTable" widgetVar="bookTableVar"
+				value="#{bookController.bookList}" var="b" rowKey="#{b.id}"
+				rows="10" rowIndexVar="rowIndex" paginator="true"
+				paginatorPosition="bottom">
+				<p:column>
+					<f:facet name="header">Book No.</f:facet>
+					<h:outputText value="#{rowIndex+1}" />
+				</p:column>
+				<p:column headerText="ISBN">
+					<h:outputText value="#{b.isbn}" />
+				</p:column>
+				<p:column headerText="Name">
+					<h:outputText value="#{b.name}" />
+				</p:column>
+				<p:column headerText="Quantity">
+					<h:outputText value="#{b.quantity}" />
+				</p:column>
+				<p:column>
+					<p:commandButton oncomplete="PF('editbookVar').show()"
+						value="update" action="#{bookController.prepareUpdate}"
+						immediate="true" update=":editBookForm:bookDetail">
+						<f:setPropertyActionListener value="#{b}"
+							target="#{bookController.book}" />
+					</p:commandButton>
+					<p:commandButton widgetVar="deleteBtnVar" value="delete"
+						oncomplete="PF('bookDeleteVar').show()" immediate="true"
+						update=":deleteBookForm:bookDelete">
+						<f:setPropertyActionListener value="#{b}"
+							target="#{bookController.book}" />
+					</p:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="Create New Book" id="createNewBookButton"
+						widgetVar="createNewButtonVar"
+						oncomplete="PF('editbookVar').show()"
+						action="#{bookController.prepareCreate}">
+						<p:resetInput
+							target=":editBookForm:editInputText :editBookForm:categorySelect"></p:resetInput>
+					</p:commandButton>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+		<ui:include src="editBook.xhtml"></ui:include>
+		<ui:include src="deleteBook.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>

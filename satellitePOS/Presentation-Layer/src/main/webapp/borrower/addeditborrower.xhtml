@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="editBorrowerForm">
+<p:dialog header="borrowerName" widgetVar="borrowerVar"
+		id="borrowerDetail">
+		<p:outputPanel id="borrowerDetails">
+			<p:panelGrid columns="2" id="borrowerGrid">
+				<p:outputLabel value="Borrower Name:" />
+				<h:inputText value="#{borrowerController.borrower.name}"
+					required="true" requiredMessage="Name Required!" />
+				<f:facet name="footer">
+					<p:commandButton widgetVar="borrowerBtnVar"
+						action="#{borrowerController.save()}" value="Save"
+						oncomplete="PF('editBorrowerMessageVar').show()"
+						update=":borrowerForm:borrowerTable :editBorrowerForm:borrowerGrid :editBorrowerForm:editBorrowerMessageDialog"
+						onstart="PF('borrowerBtnVar').disable()"
+						onsuccess="PF('borrowerBtnVar').enable()" />
+					<p:commandButton value="Cancel"
+						oncomplete="PF('borrowerVar').hide()" immediate="true"/>
+				</f:facet>
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:dialog>
+	<p:dialog widgetVar="editBorrowerMessageVar"
+		id="editBorrowerMessageDialog" modal="true" draggable="false"
+		closable="false" header="Category Management Notification"
+		resizable="false">
+		<p:messages closable="false" showDetail="false"
+			id="editBorrowerMessages"></p:messages>
+		<p:commandButton value="Close"
+			onclick = "PF('editBorrowerMessageVar').hide()" onsuccess="PF('borrowerVar').hide()"/>
+		<script type="text/javascript">
+			if(#{borrowerController.addedOrUpdated}){
+				"PF('borrowerVar').hide();"
+			}else{
+				"PF('borrowerVar').show();"
+			}
+		</script>
+	</p:dialog>
+</h:form>
+</html>

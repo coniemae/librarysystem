@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="addEditTransactionForm">
+	<p:growl id="growl" showDetail="true" sticky="false" />
+	<p:dialog header="BookBorrower" widgetVar="borrowerBookVar"
+		id="borrowerBookId">
+		<p:outputPanel id="borrowerbookDetails">
+			<p:panelGrid columns="2" id="borrowerbookGrid">
+				<p:outputLabel value="Borrower Name:" />
+				<p:selectOneMenu id="selectBorrower" widgetVar="selectBorrowerVar"
+					value="#{transactionController.borrower}"
+					converter="borrowerConverter" required="true"
+					requiredMessage="Borrower is Required!">
+					<f:selectItem itemLabel="Select Borrower"
+						itemValue="Select Borrower" />
+					<f:selectItems value="#{transactionController.borrowerList}"
+						var="br" itemLabel="#{br.name}" itemValue="#{br}" />
+				</p:selectOneMenu>
+				<p:outputLabel value="Book Name:" />
+				<p:selectOneMenu id="selectName" widgetVar="selectNameVar"
+					value="#{transactionController.borrower.book}"
+					converter="bookConverter" required="true"
+					requiredMessage="Book is Required!">
+					<f:selectItem itemLabel="Select Book" itemValue="Select Book" />
+					<f:selectItems value="#{bookController.bookList}" var="b"
+						itemLabel="#{b.name}" itemValue="#{b}" />
+				</p:selectOneMenu>
+				<f:facet name="footer">
+					<p:commandButton widgetVar="borrowerBookBtnVar" value="Save"
+						action="#{transactionController.update()}"
+						oncomplete="PF('borrowerBookVar').hide"
+						update=":borrowBookForm:borrowBookTable :addEditTransactionForm:borrowerBookId growl" />
+					<p:commandButton value="Cancel" immediate="true"
+						oncomplete="PF('borrowerBookVar').hide()" />
+					<p:commandButton id="btn_reset" value="Reset" type="reset" />
+				</f:facet>
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:dialog>
+	<!-- <p:dialog widgetVar="editBorrowBookVar" id="editBorrowBookVar"
+		modal="true" draggable="false" closable="false"
+		header="Borrow Book Management Notification" resizable="false">
+		<p:messages closable="false" showDetail="false"
+			id="editBorrowBookMessage"></p:messages>
+		<p:commandButton value="Close"
+			onclick="PF('editBorrowBookVar').hide()"
+			onsuccess="PF('borrowerBookVar').hide()"
+			update=":borrowBookForm:borrowBookTable" />
+		<script type="text/javascript">
+			if(#{transactionController.addedOrUpdated}){
+				"PF('borrowerBookVar').hide();"
+			}else{
+				"PF('borrowerBookVar').show();"
+			}
+		</script>
+	</p:dialog> -->
+</h:form>
+</html>

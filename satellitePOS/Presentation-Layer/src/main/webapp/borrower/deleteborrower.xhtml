@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="deleteBorrowerForm">
+	<p:dialog header="Delete borrower" widgetVar="DeleteVar" id="Delete">
+		<p:outputPanel id="Deletes">
+			<p:panelGrid columns="2">
+				<p:commandButton widgetVar="DeleteBtnVar" id="DeleteBtn"
+					action="#{borrowerController.delete()}" value="Delete"
+					oncomplete="PF('DeleteVar').hide()"
+					update=":borrowerForm:borrowerTable"
+					onstart="PF('DeleteBtnVar').disable()"
+					onsuccess="PF('DeleteBtnVar').enable()" />
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:dialog>
+</h:form>
+</html>

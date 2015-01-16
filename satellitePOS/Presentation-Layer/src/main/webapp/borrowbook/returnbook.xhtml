@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form id="returnBookForm">
+	<p:growl id="growl" showDetail="true" sticky="false"/>
+		<p:dialog header="returnBook" widgetVar="returnBookVar"
+			id="returnBookId">
+			<p:outputPanel id="returnBookDetails">
+				<p:panelGrid columns="2" id="returnBookGridId">
+					<p:outputLabel value="Date Returned:" />
+					<p:calendar value="#{transactionController.borrower.dateReturned}"
+						label="Date Returned" required="true"
+						requiredMessage="Date Returned is Required!" />
+				</p:panelGrid>
+			</p:outputPanel>
+			<f:facet name="footer">
+				<p:commandButton widgetVar="returnBookBtnVar"
+					actionListener="#{transactionController.update()}" value="Save"
+					oncomplete="PF('editBorrowBookVar').show"
+					update=":borrowBookForm:borrowBookTable :returnBookForm:returnBookGridId growl" 
+					onstart="PF('returnBookBtnVar').disable()"
+					onsuccess="PF('returnBookBtnVar').enable()" />
+				<p:commandButton value="Cancel"
+					oncomplete="PF('returnBookVar').hide()" immediate="true" />
+				<p:commandButton id="btn_reset" value="Reset" type="reset" />
+			</f:facet>
+		</p:dialog>
+		<p:dialog widgetVar="editBorrowBookVar"
+		id="editBorrowBookVar" modal="true" draggable="false"
+		closable="false" header="Borrow Book Management Notification"
+		resizable="false">
+		<p:messages closable="false" showDetail="false" id="editBorrowBookMessage" ></p:messages>
+		<p:commandButton value="Close"
+			onclick="PF('editBorrowBookVar').hide()"
+			onsuccess="PF('borrowerBookVar').hide()"
+			update=":borrowBookForm:borrowBookTable" />
+	</p:dialog> 
+</h:form>
+</html>
